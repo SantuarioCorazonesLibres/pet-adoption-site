@@ -58,15 +58,15 @@ const Footer = () => {
             <div className="space-y-2 text-sm">
               <div className="flex items-center space-x-2 text-muted-foreground">
                 <Mail className="h-4 w-4" />
-                <span>info@corazoneslibres.org</span>
+                <span>jorge.corazoneslibres@hotmail.com</span>
               </div>
               <div className="flex items-center space-x-2 text-muted-foreground">
                 <Phone className="h-4 w-4" />
-                <span>+52 (55) 1234-5678</span>
+                <span>449 142 6403 / 449 920 2554</span>
               </div>
               <div className="flex items-center space-x-2 text-muted-foreground">
                 <MapPin className="h-4 w-4" />
-                <span>Ciudad de México, México</span>
+                <span>Peñuelas, Aguascalientes, México</span>
               </div>
             </div>
           </div>

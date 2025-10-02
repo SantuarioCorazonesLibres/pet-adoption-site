@@ -1,25 +1,38 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Toaster } from './components/ui/sonner';
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Header from './components/Header';
 import Index from './pages/Index';
 import NotFound from './pages/NotFound';
-import { Toaster } from './components/ui/sonner';
 import Footer from './components/Footer';
+import AboutUs from './pages/AboutUs';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <Router>
-      <div className='min-h-screen flex flex-col'>
-        <Header />
-        <main className='flex-grow'>
-          <Routes>
-            <Route path='/' element={<Index />} />
-            <Route path='*' element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
         <Toaster />
-      </div>
-    </Router>
+        <Sonner />
+        <Router>
+          <div className='min-h-screen flex flex-col'>
+            <Header />
+            <main className='flex-grow'>
+              <Routes>
+                <Route path='/' element={<Index />} />
+                <Route path='/sobre-nosotros' element={<AboutUs />} />
+                <Route path='*' element={<NotFound />} />
+              </Routes>
+            </main>
+            <Footer />
+            <Toaster />
+          </div>
+        </Router>
+      </TooltipProvider>
+    </QueryClientProvider>
   )
 }
 
