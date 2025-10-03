@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Heart, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import LogoTransparent from "@/assets/Logo_transparent.png";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -17,7 +18,12 @@ const Header = () => {
           {/* Logo */}
           <NavLink to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
             <div className="relative">
-              <Heart className="h-8 w-8 text-primary animate-pulse-warm" fill="currentColor" />
+              <img 
+                  src={LogoTransparent} 
+                  alt="Logotipo de la asociación"
+                  className="h-10 w-10 text-primary "
+                />
+              {/* <Heart className="h-8 w-8 text-primary animate-pulse-warm" fill="currentColor" /> */}
             </div>
             <span className="text-xl font-bold bg-gradient-warm bg-clip-text text-transparent">
               Corazones Libres

@@ -79,7 +79,7 @@ export default function FeaturedPets() {
                 age={pet.age}
                 size={pet.size}
                 location={pet.location}
-                image={pet.image_url}
+                image_url={pet.image_url}
                 gender={pet.gender}
                 type={pet.type as "Perro" | "Gato"}
                 description={pet.description}

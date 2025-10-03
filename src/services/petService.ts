@@ -42,11 +42,89 @@ export const getFeaturedPets = async (limit: number = 3): Promise<Pet[]> => {
 };
 
 /**
- * Obtiene todas las mascotas disponibles
- * @returns Array de todas las mascotas disponibles
+ * Obtiene todas las mascotas disponibles con filtros opcionales
+ * @param filters - Objeto con filtros opcionales
+ * @returns Array de mascotas filtradas
  */
-export const getAllAvailablePets = async (): Promise<Pet[]> => {
-  return getFeaturedPets(100); // Sin límite específico
+export const getAllAvailablePets = async (filters?: {
+  searchTerm?: string;
+  types?: string[];
+  size?: string;
+  gender?: string[];
+  location?: string;
+}): Promise<Pet[]> => {
+  try {
+    let query = supabase
+      .from("pets")
+      .select(`
+        *,
+        pet_types:pet_type_id(name),
+        sizes:size_id(name),
+        locations:location_id(name),
+        pets_personalities(
+          personalities(name)
+        )
+      `)
+      .eq("is_available", true);
+
+    // Aplicar filtros si existen
+    if (filters?.searchTerm) {
+      query = query.ilike("name", `%${filters.searchTerm}%`);
+    }
+
+    if (filters?.size) {
+      // Necesitamos hacer un join para filtrar por tamaño
+      const { data: sizesData } = await supabase
+        .from("sizes")
+        .select("id")
+        .ilike("name", filters.size)
+        .single();
+      
+      if (sizesData) {
+        query = query.eq("size_id", sizesData.id);
+      }
+    }
+
+    if (filters?.location) {
+      // Necesitamos hacer un join para filtrar por ubicación
+      const { data: locationData } = await supabase
+        .from("locations")
+        .select("id")
+        .ilike("name", `%${filters.location}%`)
+        .single();
+      
+      if (locationData) {
+        query = query.eq("location_id", locationData.id);
+      }
+    }
+
+    if (filters?.gender && filters.gender.length > 0) {
+      query = query.in("gender", filters.gender);
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      console.error("Error fetching all pets:", error);
+      throw error;
+    }
+
+    if (!data) {
+      return [];
+    }
+
+    let pets = transformSupabasePets(data as unknown as SupabasePet[]);
+
+    // Filtros del lado del cliente (para tipos, ya que es relación)
+    if (filters?.types && filters.types.length > 0) {
+      pets = pets.filter(pet => filters.types!.includes(pet.type));
+    }
+
+    return pets;
+  } catch (error) {
+    console.error("Error en getAllAvailablePets:", error);
+    return [];
+  }
 };
 
 /**
@@ -84,5 +162,28 @@ export const getPetById = async (petId: string): Promise<Pet | null> => {
   } catch (error) {
     console.error("Error en getPetById:", error);
     return null;
+  }
+};
+
+/**
+ * Obtiene todas las ubicaciones únicas de la base de datos
+ * @returns Array de nombres de ubicaciones
+ */
+export const getAllLocations = async (): Promise<string[]> => {
+  try {
+    const { data, error } = await supabase
+      .from("locations")
+      .select("name")
+      .order("name");
+
+    if (error) {
+      console.error("Error fetching locations:", error);
+      return [];
+    }
+
+    return data?.map(loc => loc.name) || [];
+  } catch (error) {
+    console.error("Error en getAllLocations:", error);
+    return [];
   }
 };

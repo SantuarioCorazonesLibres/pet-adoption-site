@@ -71,7 +71,7 @@ export default function Hero() {
                     <Heart className="h-6 w-6 text-primary" fill="currentColor" />
                   </div>
                   <div>
-                    <div className="font-semibold">+50 adopciones</div>
+                    <div className="font-semibold">+15 adopciones</div>
                     <div className="text-sm text-muted-foreground">este mes</div>
                   </div>
                 </div>

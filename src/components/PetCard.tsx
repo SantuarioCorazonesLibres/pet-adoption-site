@@ -10,7 +10,7 @@ interface PetCardProps {
   age: string;
   size: string;
   location: string;
-  image: string;
+  image_url: string;
   gender: "Macho" | "Hembra";
   type: "Perro" | "Gato";
   description: string;
@@ -66,17 +66,17 @@ const PetLocation = ({ location }: { location: string }) => (
 
 // Componente para la imagen de la mascota
 const PetImage = ({ 
-  image, 
+  image_url, 
   name, 
   type 
 }: { 
-  image: string; 
+  image_url: string; 
   name: string; 
   type: "Perro" | "Gato" 
 }) => (
   <div className="relative overflow-hidden rounded-t-lg">
     <img 
-      src={image} 
+      src={image_url} 
       alt={name}
       className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
     />
@@ -92,7 +92,7 @@ const PetCard = ({
   age, 
   size, 
   location, 
-  image, 
+  image_url, 
   gender, 
   type,
   description,
@@ -100,7 +100,7 @@ const PetCard = ({
 }: PetCardProps) => {
   return (
     <Card className="group hover:shadow-warm transition-all duration-300 hover:-translate-y-1 bg-gradient-card h-[420px] flex flex-col">
-      <PetImage image={image} name={name} type={type} />
+      <PetImage image_url={image_url} name={name} type={type} />
 
       <CardContent className="p-4 flex-1 flex flex-col justify-between">
         <div className="space-y-3">

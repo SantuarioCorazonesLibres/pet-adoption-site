@@ -1,5 +1,6 @@
-import { Heart, Mail, Phone, MapPin, Facebook, Instagram, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Instagram, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import LogoTransparent from "@/assets/Logo_transparent.png";
 
 const Footer = () => {
   return (
@@ -9,7 +10,12 @@ const Footer = () => {
           {/* Logo y descripción */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <Heart className="h-6 w-6 text-primary" fill="currentColor" />
+              <img 
+                  src={LogoTransparent} 
+                  alt="Logotipo de la asociación"
+                  className="h-10 w-10 "
+                />
+              {/* <Heart className="h-6 w-6 text-primary" fill="currentColor" /> */}
               <span className="text-lg font-bold bg-gradient-warm bg-clip-text text-transparent">
                 Corazones Libres
               </span>
