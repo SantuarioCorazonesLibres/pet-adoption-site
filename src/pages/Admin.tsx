@@ -5,8 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   PawPrint, 
-  Heart, 
-  FileText, 
+  FolderCog, 
   BarChart3,
   LogOut,
   Settings,
@@ -15,6 +14,7 @@ import {
 import { signOut } from "@/services/authService";
 import { useAuth } from "@/hooks/useAuth";
 import LogoutConfirmation from "@/components/LogoutConfirmation";
+import CatalogsManager from "@/components/CatalogsManager";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -88,20 +88,13 @@ const Admin = () => {
                       value="stories" 
                       className="justify-start data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
                     >
-                      <Heart className="h-4 w-4 mr-2" />
-                      <span>Historias</span>
+                      <FolderCog className="h-4 w-4 mr-2" />
+                      <span>Catalogos</span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="applications" 
                       className="justify-start data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                    >
-                      <FileText className="h-4 w-4 mr-2" />
-                      <span>Solicitudes</span>
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="settings" 
-                      className="justify-start data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                    >
+                    >                     
                       <Settings className="h-4 w-4 mr-2" />
                       <span>Configuración</span>
                     </TabsTrigger>
@@ -166,45 +159,10 @@ const Admin = () => {
                 </Card>
               </TabsContent>
 
-              {/* Historias de Éxito */}
+              {/* Catalogos */}
               <TabsContent value="stories" className="mt-0">
-                <Card className="p-6">
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="p-3 rounded-lg bg-primary/10">
-                        <Heart className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <h2 className="text-2xl font-bold text-foreground">Historias de Éxito</h2>
-                        <p className="text-sm text-muted-foreground">Gestiona las historias de adopciones exitosas</p>
-                      </div>
-                    </div>
-                    <div className="pt-6 text-center text-muted-foreground">
-                      <p>Aquí irá la gestión de historias de éxito</p>
-                    </div>
-                  </div>
-                </Card>
-              </TabsContent>
-
-              {/* Solicitudes de Adopción */}
-              <TabsContent value="applications" className="mt-0">
-                <Card className="p-6">
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="p-3 rounded-lg bg-primary/10">
-                        <FileText className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <h2 className="text-2xl font-bold text-foreground">Solicitudes de Adopción</h2>
-                        <p className="text-sm text-muted-foreground">Revisa y gestiona las solicitudes de adopción</p>
-                      </div>
-                    </div>
-                    <div className="pt-6 text-center text-muted-foreground">
-                      <p>Aquí irá la gestión de solicitudes de adopción</p>
-                    </div>
-                  </div>
-                </Card>
-              </TabsContent>
+                <CatalogsManager />
+              </TabsContent>              
 
               {/* Configuración */}
               <TabsContent value="settings" className="mt-0">
