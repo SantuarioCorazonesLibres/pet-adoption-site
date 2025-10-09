@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Edit2, Trash2, Loader2, Cat, Ruler, MapPin, Smile } from "lucide-react";
+import { Plus, Edit2, Trash2, Loader2, Ruler, MapPin, Smile, Dog } from "lucide-react";
 import { toast } from "sonner";
 import { useCatalog } from "@/hooks/useCatalog";
 import { CatalogType, CatalogItem } from "@/types/catalog.types";
@@ -25,7 +25,7 @@ const catalogConfigs: CatalogConfig[] = [
     type: "pet_types",
     name: "Tipos de Mascota",
     description: "Gestiona los tipos de mascotas (Perro, Gato, etc.)",
-    icon: <Cat className="h-5 w-5" />,
+    icon: <Dog className="h-5 w-5" />,
     hasDescription: false
   },
   {

@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Heart, MapPin, Shield, Clock, User, Info } from "lucide-react";
+import { Heart, MapPin, Shield, Clock, User, MessageCircle } from "lucide-react";
 import { useState } from "react";
 
 interface PetDetailModalProps {
@@ -29,27 +29,35 @@ interface PetDetailModalProps {
 const PetDetailModal = ({ pet, isOpen, onClose }: PetDetailModalProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
+  const handleAdoptionRequest = () => {
+    const message = `¡Hola! \n\nVi a ${pet.name} y me encantaría saber más sobre su adopción \n\n¿Podrían contarme un poco sobre el proceso y los siguientes pasos? ¡Muchas gracias!`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/524491426403?text=${encodedMessage}`;
+
+    window.open(whatsappUrl, '_blank');
+  };
+
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold">{pet.name}</DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-6">
           {/* Imagen principal */}
           <div className="relative">
-            <img 
-              src={pet.image_url} 
+            <img
+              src={pet.image_url}
               alt={pet.name}
               className="w-full h-64 object-cover rounded-lg"
             />
             <Button
               variant="ghost"
               size="icon"
-              className={`absolute top-2 right-2 bg-white/80 backdrop-blur-sm hover:bg-white/90 ${
-                isFavorite ? 'text-red-500' : 'text-gray-600'
-              }`}
+              className={`absolute top-2 right-2 bg-white/80 backdrop-blur-sm hover:bg-white/90 ${isFavorite ? 'text-red-500' : 'text-gray-600'
+                }`}
               onClick={() => setIsFavorite(!isFavorite)}
             >
               <Heart className="h-4 w-4" fill={isFavorite ? "currentColor" : "none"} />
@@ -152,15 +160,14 @@ const PetDetailModal = ({ pet, isOpen, onClose }: PetDetailModalProps) => {
             <p className="text-muted-foreground">{pet.rescueHistory}</p>
           </div>
 
-          {/* Botones de acción */}
-          <div className="flex flex-col sm:flex-row gap-3 pt-4">
-            <Button className="flex-1 bg-primary hover:bg-primary/90">
-              <Heart className="h-4 w-4 mr-2" />
-              Solicitar adopción
-            </Button>
-            <Button variant="outline" className="flex-1">
-              <Info className="h-4 w-4 mr-2" />
-              Más información
+          {/* Botón de acción */}
+          <div className="pt-4">
+            <Button
+              className="w-full bg-green-600 hover:bg-green-700 text-white"
+              onClick={handleAdoptionRequest}
+            >
+              <MessageCircle className="h-4 w-4 mr-2" />
+              Solicitar adopción por WhatsApp
             </Button>
           </div>
         </div>

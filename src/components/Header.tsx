@@ -1,14 +1,20 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import LogoTransparent from "@/assets/Logo_transparent.png";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleDonateClick = () => {
+    navigate("/donaciones");
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -23,7 +29,6 @@ const Header = () => {
                   alt="Logotipo de la asociación"
                   className="h-10 w-10 text-primary "
                 />
-              {/* <Heart className="h-8 w-8 text-primary animate-pulse-warm" fill="currentColor" /> */}
             </div>
             <span className="text-xl font-bold bg-gradient-warm bg-clip-text text-transparent">
               Corazones Libres
@@ -62,7 +67,10 @@ const Header = () => {
             >
               Nosotros
             </NavLink>
-            <Button className="bg-gradient-warm hover:shadow-warm transition-all duration-300">
+            <Button 
+              className="bg-gradient-warm hover:shadow-warm transition-all duration-300"
+              onClick={handleDonateClick}
+            >
               Donar Ahora
             </Button>
           </nav>
@@ -115,7 +123,10 @@ const Header = () => {
               >
                 Nosotros
               </NavLink>
-              <Button className="bg-gradient-warm hover:shadow-warm transition-all duration-300 w-fit">
+              <Button 
+                className="bg-gradient-warm hover:shadow-warm transition-all duration-300 w-fit"
+                onClick={handleDonateClick}
+              >
                 Donar Ahora
               </Button>
             </nav>

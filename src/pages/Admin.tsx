@@ -15,6 +15,8 @@ import { signOut } from "@/services/authService";
 import { useAuth } from "@/hooks/useAuth";
 import LogoutConfirmation from "@/components/LogoutConfirmation";
 import CatalogsManager from "@/components/CatalogsManager";
+import PetsManager from "@/components/PetsManager";
+import Dashboard from "@/components/Dashboard";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -90,11 +92,11 @@ const Admin = () => {
                     >
                       <FolderCog className="h-4 w-4 mr-2" />
                       <span>Catalogos</span>
-                    </TabsTrigger>
+                    </TabsTrigger>                    
                     <TabsTrigger 
-                      value="applications" 
+                      value="settings" 
                       className="justify-start data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                    >                     
+                    >
                       <Settings className="h-4 w-4 mr-2" />
                       <span>Configuración</span>
                     </TabsTrigger>
@@ -121,48 +123,19 @@ const Admin = () => {
             <Tabs value={activeTab} className="w-full">
               {/* Dashboard */}
               <TabsContent value="dashboard" className="mt-0">
-                <Card className="p-6">
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="p-3 rounded-lg bg-primary/10">
-                        <BarChart3 className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <h2 className="text-2xl font-bold text-foreground">Dashboard</h2>
-                        <p className="text-sm text-muted-foreground">Bienvenido al panel de administración</p>
-                      </div>
-                    </div>
-                    <div className="pt-6 text-center text-muted-foreground">
-                      <p>Aquí irá el contenido del dashboard con estadísticas y métricas</p>
-                    </div>
-                  </div>
-                </Card>
+                <Dashboard />
               </TabsContent>
 
               {/* Mascotas */}
               <TabsContent value="pets" className="mt-0">
-                <Card className="p-6">
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="p-3 rounded-lg bg-primary/10">
-                        <PawPrint className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <h2 className="text-2xl font-bold text-foreground">Gestión de Mascotas</h2>
-                        <p className="text-sm text-muted-foreground">Administra las mascotas disponibles para adopción</p>
-                      </div>
-                    </div>
-                    <div className="pt-6 text-center text-muted-foreground">
-                      <p>Aquí irá el CRUD de mascotas</p>
-                    </div>
-                  </div>
-                </Card>
+                <PetsManager />
               </TabsContent>
 
               {/* Catalogos */}
               <TabsContent value="stories" className="mt-0">
                 <CatalogsManager />
-              </TabsContent>              
+              </TabsContent>
+              
 
               {/* Configuración */}
               <TabsContent value="settings" className="mt-0">

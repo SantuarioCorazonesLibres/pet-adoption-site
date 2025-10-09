@@ -12,6 +12,8 @@ import Adopcion from './pages/Adoptions';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import AdminDashboard from './pages/Admin';
+import Donaciones from './components/Donations';
+import ScrollToTop from './components/ScrollToTop';
 
 const queryClient = new QueryClient();
 
@@ -22,6 +24,7 @@ function App() {
         <Toaster />
         <Sonner />
         <Router>
+          <ScrollToTop />
           <div className='min-h-screen flex flex-col'>
             <Header />
             <main className='flex-grow'>
@@ -30,6 +33,7 @@ function App() {
                 <Route path='/' element={<Index />} />
                 <Route path="/adopcion" element={<Adopcion />} />
                 <Route path='/sobre-nosotros' element={<AboutUs />} />
+                <Route path='/donaciones' element={<Donaciones />} />
                 
                 {/* ===== RUTA DE LOGIN (OCULTA) ===== */}
                 {/* No hay enlaces a esta ruta en el sitio */}

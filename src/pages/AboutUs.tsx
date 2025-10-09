@@ -2,7 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Heart, Users, Clock, Award, PawPrint, Calendar, MapPin, Mail } from "lucide-react";
 import heroImage from "@/assets/hero-pets.jpg";
-import careIcon from "@/assets/care-icon.jpg";
+import main from '@/assets/main.png'
+import banner from "@/assets/banner.jpg";
 import successStory from "@/assets/success-story.jpg";
 
 const SobreNosotros = () => {
@@ -22,7 +23,7 @@ const SobreNosotros = () => {
           </p>
           <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden mb-8">
             <img 
-              src={heroImage} 
+              src={banner} 
               alt="Mascotas rescatadas felices" 
               className="w-full h-full object-cover"
             />
@@ -56,12 +57,12 @@ const SobreNosotros = () => {
               </div>
               <div className="relative">
                 <img 
-                  src={careIcon} 
+                  src={main} 
                   alt="Cuidado de mascotas" 
                   className="w-full h-64 object-cover rounded-lg"
                 />
                 <div className="absolute top-4 right-4 bg-primary/90 text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
-                  6 años salvando vidas
+                  Salvando vidas desde 2024
                 </div>
               </div>
             </div>

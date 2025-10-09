@@ -2,6 +2,32 @@ import { supabase } from "@/lib/supabaseClient";
 import { Pet, SupabasePet } from "@/types/pet.types";
 import { transformSupabasePets } from "@/utils/petTransformer";
 
+// ============================================
+// TIPOS PARA EL ADMIN
+// ============================================
+
+export interface PetFormData {
+  name: string;
+  breed: string;
+  age: string;
+  gender: "Macho" | "Hembra";
+  description: string;
+  rescue_history: string;
+  rescue_date: string;
+  dewormed: boolean;
+  castrated: boolean | null;
+  image_url: string;
+  is_available: boolean;
+  pet_type_id: string;
+  size_id: string;
+  location_id: string;
+  personality_ids: string[];
+}
+
+// ============================================
+// FUNCIONES PARA EL SITIO PÚBLICO
+// ============================================
+
 /**
  * Obtiene las mascotas destacadas (disponibles para adopción)
  * @param limit - Número máximo de mascotas a obtener
@@ -32,7 +58,7 @@ export const getFeaturedPets = async (limit: number = 3): Promise<Pet[]> => {
       return [];
     }
 
-    console.log("Datos recibidos de Supabase:", data);
+    // console.log("Datos recibidos de Supabase:", data);  //REVISAMOS LO QUE VIENE DE SUPABASE
     
     return transformSupabasePets(data as unknown as SupabasePet[]);
   } catch (error) {
@@ -73,7 +99,6 @@ export const getAllAvailablePets = async (filters?: {
     }
 
     if (filters?.size) {
-      // Necesitamos hacer un join para filtrar por tamaño
       const { data: sizesData } = await supabase
         .from("sizes")
         .select("id")
@@ -86,7 +111,6 @@ export const getAllAvailablePets = async (filters?: {
     }
 
     if (filters?.location) {
-      // Necesitamos hacer un join para filtrar por ubicación
       const { data: locationData } = await supabase
         .from("locations")
         .select("id")
@@ -185,5 +209,176 @@ export const getAllLocations = async (): Promise<string[]> => {
   } catch (error) {
     console.error("Error en getAllLocations:", error);
     return [];
+  }
+};
+
+// ============================================
+// FUNCIONES PARA EL PANEL ADMIN
+// ============================================
+
+/**
+ * Obtiene todas las mascotas con sus relaciones (para admin)
+ */
+export const getAllPetsAdmin = async () => {
+  try {
+    const { data, error } = await supabase
+      .from("pets")
+      .select(`
+        *,
+        pet_types:pet_type_id(id, name),
+        sizes:size_id(id, name),
+        locations:location_id(id, name),
+        pets_personalities(
+          personality_id,
+          personalities(id, name, description)
+        )
+      `)
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    return data || [];
+  } catch (error) {
+    console.error("Error obteniendo mascotas:", error);
+    throw error;
+  }
+};
+
+/**
+ * Crea una nueva mascota
+ */
+export const createPet = async (petData: PetFormData) => {
+  try {
+    const { personality_ids, ...petFields } = petData;
+
+    const { data: pet, error: petError } = await supabase
+      .from("pets")
+      .insert([petFields])
+      .select()
+      .single();
+
+    if (petError) throw petError;
+
+    if (personality_ids.length > 0) {
+      const personalities = personality_ids.map(personality_id => ({
+        pet_id: pet.id,
+        personality_id
+      }));
+
+      const { error: personalitiesError } = await supabase
+        .from("pets_personalities")
+        .insert(personalities);
+
+      if (personalitiesError) throw personalitiesError;
+    }
+
+    return { data: pet, error: null };
+  } catch (error: any) {
+    console.error("Error creando mascota:", error);
+    return { data: null, error: error.message };
+  }
+};
+
+/**
+ * Actualiza una mascota existente
+ */
+export const updatePet = async (id: string, petData: PetFormData) => {
+  try {
+    const { personality_ids, ...petFields } = petData;
+
+    const { data: pet, error: petError } = await supabase
+      .from("pets")
+      .update(petFields)
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (petError) throw petError;
+
+    // Eliminar personalidades anteriores
+    await supabase.from("pets_personalities").delete().eq("pet_id", id);
+
+    // Insertar nuevas personalidades
+    if (personality_ids.length > 0) {
+      const personalities = personality_ids.map(personality_id => ({
+        pet_id: id,
+        personality_id
+      }));
+
+      const { error: personalitiesError } = await supabase
+        .from("pets_personalities")
+        .insert(personalities);
+
+      if (personalitiesError) throw personalitiesError;
+    }
+
+    return { data: pet, error: null };
+  } catch (error: any) {
+    console.error("Error actualizando mascota:", error);
+    return { data: null, error: error.message };
+  }
+};
+
+/**
+ * Elimina una mascota
+ */
+export const deletePet = async (id: string) => {
+  try {
+    const { error } = await supabase
+      .from("pets")
+      .delete()
+      .eq("id", id);
+
+    if (error) throw error;
+    return { error: null };
+  } catch (error: any) {
+    console.error("Error eliminando mascota:", error);
+    return { error: error.message };
+  }
+};
+
+/**
+ * Obtiene estadísticas del dashboard
+ */
+export const getDashboardStats = async () => {
+  try {
+    const { count: totalPets } = await supabase
+      .from("pets")
+      .select("*", { count: "exact", head: true });
+
+    const { count: availablePets } = await supabase
+      .from("pets")
+      .select("*", { count: "exact", head: true })
+      .eq("is_available", true);
+
+    const { count: adoptedPets } = await supabase
+      .from("pets")
+      .select("*", { count: "exact", head: true })
+      .eq("is_available", false);
+
+    const { data: petsByType } = await supabase
+      .from("pets")
+      .select(`pet_type_id, pet_types:pet_type_id(name)`);
+
+    const { data: petsByLocation } = await supabase
+      .from("pets")
+      .select(`location_id, locations:location_id(name)`)
+      .eq("is_available", true);
+
+    return {
+      totalPets: totalPets || 0,
+      availablePets: availablePets || 0,
+      adoptedPets: adoptedPets || 0,
+      petsByType: petsByType || [],
+      petsByLocation: petsByLocation || []
+    };
+  } catch (error) {
+    console.error("Error obteniendo estadísticas:", error);
+    return {
+      totalPets: 0,
+      availablePets: 0,
+      adoptedPets: 0,
+      petsByType: [],
+      petsByLocation: []
+    };
   }
 };
