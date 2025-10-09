@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Heart, Users, Clock, Award, PawPrint, Calendar, MapPin, Mail } from "lucide-react";
-import heroImage from "@/assets/hero-pets.jpg";
 import main from '@/assets/main.png'
 import banner from "@/assets/banner.jpg";
 import successStory from "@/assets/success-story.jpg";
