@@ -80,3 +80,20 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Ocultar scrollbar */
+
+/* Para navegadores WebKit (Chrome, Safari, Edge) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Para Firefox */
+.scrollbar-hide {
+  scrollbar-width: none;
+}
+
+/* Para IE y Edge legacy */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+}

@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Search, X } from "lucide-react";
+import { Search, X, Filter } from "lucide-react";
 
 interface AdoptionFiltersProps {
   showFilters: boolean;
@@ -21,6 +20,7 @@ interface AdoptionFiltersProps {
   onGenderChange: (gender: string, checked: boolean) => void;
   onLocationChange: (value: string) => void;
   onClearFilters: () => void;
+  onApplyFilters: () => void;
   onClose: () => void;
 }
 
@@ -38,26 +38,13 @@ const AdoptionFilters = ({
   onGenderChange,
   onLocationChange,
   onClearFilters,
+  onApplyFilters,
   onClose,
 }: AdoptionFiltersProps) => {
   if (!showFilters) return null;
 
-  // Estado local para el input
-  const [localSearch, setLocalSearch] = useState(searchTerm);
-
-  const handleSearch = () => {
-    onSearchChange(localSearch.trim());
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSearch();
-    }
-  };
-
   return (
-    <Card className="sticky top-24">
+    <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
         <CardTitle className="text-lg">Filtros</CardTitle>
         <Button
@@ -73,25 +60,15 @@ const AdoptionFilters = ({
         {/* Búsqueda */}
         <div className="space-y-2">
           <Label htmlFor="search">Buscar por nombre</Label>
-          <div className="relative flex items-center space-x-2">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                id="search"
-                placeholder="Nombre de la mascota..."
-                value={localSearch}
-                onChange={(e) => setLocalSearch(e.target.value)}
-                onKeyDown={handleKeyDown}
-                className="pl-10"
-              />
-            </div>
-            <Button
-              onClick={handleSearch}
-              size="icon"
-              className="bg-primary hover:bg-primary/90"
-            >
-              <Search className="h-4 w-4 text-white" />
-            </Button>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              id="search"
+              placeholder="Nombre de la mascota..."
+              value={searchTerm}
+              onChange={(e) => onSearchChange(e.target.value)}
+              className="pl-10"
+            />
           </div>
         </div>
 
@@ -201,10 +178,23 @@ const AdoptionFilters = ({
           </Select>
         </div>
 
-        {/* Botón para limpiar filtros */}
-        <Button variant="outline" onClick={onClearFilters} className="w-full">
-          Limpiar filtros
-        </Button>
+        {/* Botones de acción */}
+        <div className="space-y-2 pt-4">
+          <Button 
+            onClick={onApplyFilters} 
+            className="w-full"
+          >
+            <Filter className="h-4 w-4 mr-2" />
+            Aplicar Filtros
+          </Button>
+          <Button 
+            variant="outline" 
+            onClick={onClearFilters} 
+            className="w-full"
+          >
+            Limpiar filtros
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );

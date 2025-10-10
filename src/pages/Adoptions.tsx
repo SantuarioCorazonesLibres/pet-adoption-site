@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { useAllPets } from "@/hooks/useAllPets";
 import PetCard from "@/components/PetCard";
 import PetCardSkeleton from "@/components/PetCardSkeleton";
@@ -14,27 +14,37 @@ import { Filter, AlertCircle } from "lucide-react";
 const ITEMS_PER_PAGE = 6;
 
 const Adopcion = () => {
-  // Estados de filtros
-  const [showFilters, setShowFilters] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
-  const [selectedSize, setSelectedSize] = useState("");
-  const [selectedGenders, setSelectedGenders] = useState<string[]>([]);
-  const [selectedLocation, setSelectedLocation] = useState("");
+  // Estados de filtros temporales (no aplicados)
+  const [tempSearchTerm, setTempSearchTerm] = useState("");
+  const [tempSelectedTypes, setTempSelectedTypes] = useState<string[]>([]);
+  const [tempSelectedSize, setTempSelectedSize] = useState("");
+  const [tempSelectedGenders, setTempSelectedGenders] = useState<string[]>([]);
+  const [tempSelectedLocation, setTempSelectedLocation] = useState("");
+  
+  // Estados de filtros aplicados (los que se envían al hook)
+  const [appliedSearchTerm, setAppliedSearchTerm] = useState("");
+  const [appliedTypes, setAppliedTypes] = useState<string[]>([]);
+  const [appliedSize, setAppliedSize] = useState("");
+  const [appliedGenders, setAppliedGenders] = useState<string[]>([]);
+  const [appliedLocation, setAppliedLocation] = useState("");
   
   // Estados de UI
+  const [showFilters, setShowFilters] = useState(true);
   const [sortBy, setSortBy] = useState("recent");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedPet, setSelectedPet] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Obtener datos con el hook
+  // Ref para scroll a resultados
+  const resultsRef = useRef<HTMLDivElement>(null);
+
+  // Obtener datos con los filtros aplicados
   const { pets, locations, loading, error } = useAllPets({
-    searchTerm,
-    types: selectedTypes,
-    size: selectedSize,
-    gender: selectedGenders,
-    location: selectedLocation
+    searchTerm: appliedSearchTerm,
+    types: appliedTypes,
+    size: appliedSize,
+    gender: appliedGenders,
+    location: appliedLocation
   });
 
   // Ordenar mascotas
@@ -55,30 +65,40 @@ const Adopcion = () => {
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedPets = sortedPets.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-  // Manejadores de filtros
-  const handleTypeChange = (type: string, checked: boolean) => {
-    setSelectedTypes(checked 
-      ? [...selectedTypes, type] 
-      : selectedTypes.filter(t => t !== type)
-    );
+  // Aplicar filtros
+  const applyFilters = () => {
+    setAppliedSearchTerm(tempSearchTerm);
+    setAppliedTypes(tempSelectedTypes);
+    setAppliedSize(tempSelectedSize);
+    setAppliedGenders(tempSelectedGenders);
+    setAppliedLocation(tempSelectedLocation);
     setCurrentPage(1);
+    // Solo cerrar filtros en móvil
+    if (window.innerWidth < 1024) {
+      setShowFilters(false);
+    }
   };
 
-  const handleGenderChange = (gender: string, checked: boolean) => {
-    setSelectedGenders(checked 
-      ? [...selectedGenders, gender] 
-      : selectedGenders.filter(g => g !== gender)
-    );
-    setCurrentPage(1);
-  };
-
+  // Limpiar filtros
   const clearFilters = () => {
-    setSearchTerm("");
-    setSelectedTypes([]);
-    setSelectedSize("");
-    setSelectedGenders([]);
-    setSelectedLocation("");
+    setTempSearchTerm("");
+    setTempSelectedTypes([]);
+    setTempSelectedSize("");
+    setTempSelectedGenders([]);
+    setTempSelectedLocation("");
+    setAppliedSearchTerm("");
+    setAppliedTypes([]);
+    setAppliedSize("");
+    setAppliedGenders([]);
+    setAppliedLocation("");
     setCurrentPage(1);
+  };
+
+  // Manejador de cambio de página
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    // Hacer scroll a los resultados
+    resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   // Estados de carga y error
@@ -138,25 +158,36 @@ const Adopcion = () => {
           {/* Sidebar con filtros */}
           <div className={`lg:w-80 ${showFilters ? 'block' : 'hidden lg:block'}`}>
             <AdoptionFilters
-              showFilters={showFilters}
-              searchTerm={searchTerm}
-              selectedTypes={selectedTypes}
-              selectedSize={selectedSize}
-              selectedGenders={selectedGenders}
-              selectedLocation={selectedLocation}
-              locations={locations}
-              onSearchChange={setSearchTerm}
-              onTypeChange={handleTypeChange}
-              onSizeChange={(value) => { setSelectedSize(value); setCurrentPage(1); }}
-              onGenderChange={handleGenderChange}
-              onLocationChange={(value) => { setSelectedLocation(value); setCurrentPage(1); }}
-              onClearFilters={clearFilters}
-              onClose={() => setShowFilters(false)}
-            />
+                showFilters={showFilters}
+                searchTerm={tempSearchTerm}
+                selectedTypes={tempSelectedTypes}
+                selectedSize={tempSelectedSize}
+                selectedGenders={tempSelectedGenders}
+                selectedLocation={tempSelectedLocation}
+                locations={locations}
+                onSearchChange={setTempSearchTerm}
+                onTypeChange={(type, checked) => {
+                  setTempSelectedTypes(checked 
+                    ? [...tempSelectedTypes, type] 
+                    : tempSelectedTypes.filter(t => t !== type)
+                  );
+                }}
+                onSizeChange={setTempSelectedSize}
+                onGenderChange={(gender, checked) => {
+                  setTempSelectedGenders(checked 
+                    ? [...tempSelectedGenders, gender] 
+                    : tempSelectedGenders.filter(g => g !== gender)
+                  );
+                }}
+                onLocationChange={setTempSelectedLocation}
+                onClearFilters={clearFilters}
+                onApplyFilters={applyFilters}
+                onClose={() => setShowFilters(false)}
+              />
           </div>
 
           {/* Área principal */}
-          <div className="flex-1">
+          <div className="flex-1" ref={resultsRef}>
             {/* Controles superiores */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
               <div className="flex items-center space-x-4">
@@ -237,7 +268,7 @@ const Adopcion = () => {
                       <PaginationContent>
                         <PaginationItem>
                           <PaginationPrevious 
-                            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                            onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                             className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
                           />
                         </PaginationItem>
@@ -245,7 +276,7 @@ const Adopcion = () => {
                         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                           <PaginationItem key={page}>
                             <PaginationLink
-                              onClick={() => setCurrentPage(page)}
+                              onClick={() => handlePageChange(page)}
                               isActive={currentPage === page}
                               className="cursor-pointer"
                             >
@@ -256,7 +287,7 @@ const Adopcion = () => {
                         
                         <PaginationItem>
                           <PaginationNext 
-                            onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                            onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                             className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
                           />
                         </PaginationItem>
