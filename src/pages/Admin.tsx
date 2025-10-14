@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"; // 👈 agregado useEffect
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -8,7 +8,6 @@ import {
   FolderCog, 
   BarChart3,
   LogOut,
-  Settings,
   Image,
   Shield
 } from "lucide-react";
@@ -20,13 +19,27 @@ import PetsManager from "@/components/PetsManager";
 import Dashboard from "@/components/Dashboard";
 import ImageManager from "@/components/ImageManager";
 
-
 const Admin = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState("dashboard");
+  const { user } = useAuth();    
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
+
+  const [activeTab, setActiveTab] = useState(() => {
+    return localStorage.getItem("adminActiveTab") || "dashboard";
+  });
+
+  // 🧠 Mantener tab activo usando localStorage
+  useEffect(() => {
+    const savedTab = localStorage.getItem("adminActiveTab");
+    if (savedTab) {
+      setActiveTab(savedTab);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("adminActiveTab", activeTab);
+  }, [activeTab]);
 
   const handleLogout = async () => {
     setLoggingOut(true);
@@ -109,14 +122,7 @@ const Admin = () => {
                       >
                         <Image className="h-4 w-4 mr-2" />
                         <span>Imágenes</span>
-                      </TabsTrigger>                    
-                      <TabsTrigger 
-                        value="settings" 
-                        className="flex-shrink-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-4 py-2.5"
-                      >
-                        <Settings className="h-4 w-4 mr-2" />
-                        <span>Configuración</span>
-                      </TabsTrigger>
+                      </TabsTrigger>                      
                     </TabsList>
                   </Tabs>
                 </div>
@@ -165,14 +171,7 @@ const Admin = () => {
                     >
                       <Image className="h-4 w-4 mr-2" />
                       <span>Imágenes</span>
-                    </TabsTrigger>                    
-                    <TabsTrigger 
-                      value="settings" 
-                      className="justify-start data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                    >
-                      <Settings className="h-4 w-4 mr-2" />
-                      <span>Configuración</span>
-                    </TabsTrigger>
+                    </TabsTrigger>                                        
                   </TabsList>
                 </Tabs>
               </div>
@@ -201,33 +200,7 @@ const Admin = () => {
               <TabsContent value="images" className="mt-0">
                 <ImageManager />
               </TabsContent>
-              
-
-              {/* Configuración */}
-              <TabsContent value="settings" className="mt-0">
-                <Card className="p-4 md:p-6">
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-2 md:space-x-3">
-                      <div className="p-2 md:p-3 rounded-lg bg-primary/10 flex-shrink-0">
-                        <Settings className="h-5 w-5 md:h-6 md:w-6 text-primary" />
-                      </div>
-                      <div className="min-w-0">
-                        <h2 className="text-xl md:text-2xl font-bold text-foreground">
-                          Configuración
-                        </h2>
-                        <p className="text-xs md:text-sm text-muted-foreground">
-                          Ajusta las opciones del sistema
-                        </p>
-                      </div>
-                    </div>
-                    <div className="pt-6 text-center text-muted-foreground">
-                      <p className="text-sm md:text-base">
-                        Aquí irá la configuración del sistema
-                      </p>
-                    </div>
-                  </div>
-                </Card>
-              </TabsContent>
+                            
             </Tabs>
           </main>
         </div>
