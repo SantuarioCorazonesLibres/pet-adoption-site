@@ -10,11 +10,11 @@ const Footer = () => {
           {/* Logo y descripción */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <img 
-                  src={LogoTransparent} 
-                  alt="Logotipo de la asociación"
-                  className="h-10 w-10 "
-                />
+              <img
+                src={LogoTransparent}
+                alt="Logotipo de la asociación"
+                className="h-10 w-10 "
+              />
               {/* <Heart className="h-6 w-6 text-primary" fill="currentColor" /> */}
               <span className="text-lg font-bold bg-gradient-warm bg-clip-text text-transparent">
                 Corazones Libres
@@ -80,7 +80,11 @@ const Footer = () => {
 
         <div className="border-t mt-8 pt-6 text-center text-sm text-muted-foreground">
           <p>&copy; 2024 Corazones Libres. Todos los derechos reservados.</p>
+          <p className="text-xs text-gray-400 mt-1">
+            Desarrollado por <a href="https://ricardopuentes-portfolio.vercel.app/" target="_blank" className="hover:underline">Ricardo Puentes</a>
+          </p>
         </div>
+
       </div>
     </footer>
   );
