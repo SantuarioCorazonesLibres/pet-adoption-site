@@ -40,6 +40,7 @@ const PetFormModal = ({ isOpen, onClose, onSubmit, pet }: PetFormModalProps) => 
     rescue_date: "",
     dewormed: false,
     castrated: null,
+    vaccinated: false,
     image_url: "",
     is_available: true,
     pet_type_id: "",
@@ -63,6 +64,7 @@ const PetFormModal = ({ isOpen, onClose, onSubmit, pet }: PetFormModalProps) => 
         rescue_date: pet.rescue_date,
         dewormed: pet.dewormed,
         castrated: pet.castrated,
+        vaccinated: pet.vaccinated,
         image_url: pet.image_url,
         is_available: pet.is_available,
         pet_type_id: pet.pet_type_id,
@@ -81,6 +83,7 @@ const PetFormModal = ({ isOpen, onClose, onSubmit, pet }: PetFormModalProps) => 
         rescue_date: "",
         dewormed: false,
         castrated: null,
+        vaccinated: false,
         image_url: "",
         is_available: true,
         pet_type_id: "",
@@ -317,6 +320,17 @@ const PetFormModal = ({ isOpen, onClose, onSubmit, pet }: PetFormModalProps) => 
 
               {/* Checkboxes */}
               <div className="space-y-3 md:col-span-2">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="vaccinated"
+                    checked={formData.vaccinated}
+                    onCheckedChange={(checked) => setFormData({ ...formData, vaccinated: !!checked })}
+                  />
+                  <Label htmlFor="vaccinated" className="font-normal cursor-pointer">
+                    Vacunado
+                  </Label>
+                </div>
+                
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="dewormed"

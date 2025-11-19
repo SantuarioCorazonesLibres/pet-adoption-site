@@ -10,6 +10,7 @@ export type SupabasePet = {
   rescue_date: string;
   dewormed: boolean;
   castrated: boolean | null;
+  vaccinated: boolean | null;
   image_url: string;
   is_available: boolean;
   pet_types: { name: string } | null;
@@ -30,6 +31,7 @@ export type Pet = {
   rescue_date: string;
   dewormed: boolean;
   castrated: boolean | null;
+  vaccinated: boolean | null;
   image_url: string;
   is_available: boolean;
   type: string;

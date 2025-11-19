@@ -91,6 +91,7 @@ export default function FeaturedPets() {
                 description={pet.description}
                 dewormed={pet.dewormed}
                 castrated={pet.castrated ?? undefined}
+                vaccinated={pet.vaccinated ?? false}
                 personality={pet.personalities}
                 rescueHistory={pet.rescue_history}
                 rescueDate={pet.rescue_date}

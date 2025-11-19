@@ -15,6 +15,7 @@ interface PetCardProps {
   type: "Perro" | "Gato";
   description: string;
   dewormed: boolean;
+  vaccinated: boolean;
   personality: string[];
   rescueHistory: string;
   rescueDate: string;

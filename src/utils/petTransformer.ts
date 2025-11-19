@@ -17,6 +17,7 @@ export const transformSupabasePet = (supabasePet: SupabasePet): Pet => {
     rescue_date: supabasePet.rescue_date,
     dewormed: supabasePet.dewormed,
     castrated: supabasePet.castrated,
+    vaccinated: supabasePet.vaccinated,
     image_url: supabasePet.image_url,
     is_available: supabasePet.is_available,
     type: supabasePet.pet_types?.name || "Desconocido",

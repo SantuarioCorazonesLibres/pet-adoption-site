@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Heart, MapPin, Shield, Clock, User, MessageCircle } from "lucide-react";
+import { Heart, MapPin, Shield, Clock, User, MessageCircle, Syringe } from "lucide-react";
 import { useState } from "react";
 
 interface PetDetailModalProps {
@@ -21,6 +21,7 @@ interface PetDetailModalProps {
     rescueHistory: string;
     rescueDate: string;
     castrated?: boolean;
+    vaccinated: boolean;
   };
   isOpen: boolean;
   onClose: () => void;
@@ -105,6 +106,15 @@ const PetDetailModal = ({ pet, isOpen, onClose }: PetDetailModalProps) => {
             <div className="space-y-2">
               <h3 className="font-semibold text-lg">Estado de salud</h3>
               <div className="space-y-1 text-sm">
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">Vacunado:</span>
+                  <div className="flex items-center space-x-1">
+                    <Syringe className={`h-3 w-3 ${pet.vaccinated ? 'text-green-600' : 'text-orange-600'}`} />
+                    <span className={pet.vaccinated ? 'text-green-600' : 'text-orange-600'}>
+                      {pet.vaccinated ? "Sí" : "No"}
+                    </span>
+                  </div>
+                </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Desparasitado:</span>
                   <div className="flex items-center space-x-1">

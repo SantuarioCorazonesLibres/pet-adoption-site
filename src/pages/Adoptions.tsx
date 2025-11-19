@@ -252,6 +252,7 @@ const Adopcion = () => {
                         rescueDate={pet.rescue_date || ''}
                         dewormed={pet.dewormed}
                         castrated={pet.castrated ?? undefined}
+                        vaccinated={pet.vaccinated ?? false}
                         onLearnMore={() => {
                           setSelectedPet(pet);
                           setIsModalOpen(true);

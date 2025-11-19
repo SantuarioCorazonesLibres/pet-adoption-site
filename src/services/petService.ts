@@ -16,6 +16,7 @@ export interface PetFormData {
   rescue_date: string;
   dewormed: boolean;
   castrated: boolean | null;
+  vaccinated: boolean;
   image_url: string;
   is_available: boolean;
   pet_type_id: string;
