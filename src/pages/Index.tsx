@@ -6,11 +6,13 @@ import FAQ from "@/components/sections/FAQ";
 import SuccessStories from "@/components/sections/SuccessStories";
 import Banner from "@/components/sections/Banner";
 import Contact from "@/components/sections/Contact";
+import BackgroundDecorations from "@/components/sections/BackgroundDecorations";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">      
-      
+      <BackgroundDecorations />
+
       <Hero />
       <FeaturedPets />
       <CompanyInfo />

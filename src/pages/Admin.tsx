@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"; // 👈 agregado useEffect
+import { useState, useEffect } from "react"; 
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";

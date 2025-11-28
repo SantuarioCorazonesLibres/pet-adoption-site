@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getDashboardStats } from "@/services/petService";
 import { PawPrint, Heart, TrendingUp, Loader2 } from "lucide-react";
+import { StatsEditor } from "./StatsEditor";
 
 // 🧩 Interfaz para tipar correctamente el estado
 interface DashboardStats {
@@ -143,6 +144,8 @@ const Dashboard = () => {
           </div>
         </CardContent>
       </Card>
+
+      <StatsEditor />
     </div>
   );
 };

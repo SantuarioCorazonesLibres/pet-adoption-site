@@ -1,4 +1,4 @@
-import successStoryImage from "@/assets/success-story.jpg";
+import successStoryImage from "@/assets/success_story.png";
 import { Badge } from "@/components/ui/badge";
 import { Users } from "lucide-react";
 
@@ -26,17 +26,18 @@ export default function SuccessStories() {
                 Una nueva vida llena de <span className="text-primary">amor</span>
               </h2>
               <blockquote className="text-lg text-muted-foreground mb-6 italic">
-                "Adoptar a Luna cambió nuestras vidas completamente. Llegó asustada y desconfiada, 
-                pero con amor y paciencia se convirtió en el corazón de nuestra familia. 
-                No podemos imaginar nuestro hogar sin ella."
+                "Sookie llegó a mi vida y fue amor a primera vista. Desde el primer momento sentí que no fui yo quien la eligió, 
+                sino que ella me eligió a mí. Hoy es una perrita juguetona y amorosa que llena nuestros días de alegría. 
+                Gracias a Corazones Libres, el proceso de adopción fue cálido y acompañado en todo momento. 
+                No puedo imaginar mi vida sin ella."
               </blockquote>
               <div className="flex items-center space-x-3">
                 <div className="bg-primary/10 p-2 rounded-full">
                   <Users className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <div className="font-semibold">Familia González</div>
-                  <div className="text-sm text-muted-foreground">Adoptaron a Luna hace 2 años</div>
+                  <div className="font-semibold">Marisol Haro</div>
+                  <div className="text-sm text-muted-foreground">Adoptó a Sookie el 23 de Febrero del 2025</div>
                 </div>
               </div>
             </div>

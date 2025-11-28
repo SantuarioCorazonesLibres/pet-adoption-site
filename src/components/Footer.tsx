@@ -1,4 +1,5 @@
-import { Mail, Phone, MapPin, Facebook, Instagram, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin  } from "lucide-react";
+import { FaFacebookF, FaInstagram , FaTiktok } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import LogoTransparent from "@/assets/Logo_transparent.png";
 
@@ -21,17 +22,25 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Conectando corazones con patas, creando familias llenas de amor.
+              Conectando corazones, creando familias llenas de amor.
             </p>
             <div className="flex space-x-3">
-              <Button variant="outline" size="icon" className="h-8 w-8">
-                <Facebook className="h-4 w-4" />
+              <Button asChild variant="outline" size="icon" className="h-8 w-8">
+                <a href="https://www.facebook.com/share/1APp7xRvmk/" target="_blank" rel="noopener noreferrer">
+                  <FaFacebookF className="h-4 w-4 text-red-400" />
+                </a>
               </Button>
-              <Button variant="outline" size="icon" className="h-8 w-8">
-                <Instagram className="h-4 w-4" />
+
+              <Button asChild variant="outline" size="icon" className="h-8 w-8">
+                <a href="https://www.instagram.com/santuariocorazoneslibres?igsh=MWZvbnczeThpMjV0NA==" target="_blank" rel="noopener noreferrer">
+                  <FaInstagram className="h-4 w-4 text-red-400" />
+                </a>
               </Button>
-              <Button variant="outline" size="icon" className="h-8 w-8">
-                <Twitter className="h-4 w-4" />
+
+              <Button asChild variant="outline" size="icon" className="h-8 w-8">
+                <a href="https://twitter.com/tu_pagina" target="_blank" rel="noopener noreferrer">
+                  <FaTiktok className="h-4 w-4 text-red-400" />
+                </a>
               </Button>
             </div>
           </div>
@@ -42,8 +51,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm">
               <li><a href="/" className="text-muted-foreground hover:text-primary transition-colors">Inicio</a></li>
               <li><a href="/adopcion" className="text-muted-foreground hover:text-primary transition-colors">Adopción</a></li>
-              <li><a href="/sobre-nosotros" className="text-muted-foreground hover:text-primary transition-colors">Nosotros</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Voluntariado</a></li>
+              <li><a href="/sobre-nosotros" className="text-muted-foreground hover:text-primary transition-colors">Nosotros</a></li>              
             </ul>
           </div>
 
@@ -51,10 +59,9 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="font-semibold text-foreground">Adopción</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Requisitos</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Proceso</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Cuidados</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Testimonios</a></li>
+              <li><a href="/requisitos" className="text-muted-foreground hover:text-primary transition-colors">Requisitos</a></li>
+              <li><a href="/proceso-adopcion" className="text-muted-foreground hover:text-primary transition-colors">Proceso</a></li>              
+              <li><a href="/testimonios" className="text-muted-foreground hover:text-primary transition-colors">Testimonios</a></li>
             </ul>
           </div>
 
@@ -79,9 +86,9 @@ const Footer = () => {
         </div>
 
         <div className="border-t mt-8 pt-6 text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 Corazones Libres. Todos los derechos reservados.</p>
+          <p>&copy; 2025 Corazones Libres. Todos los derechos reservados.</p>
           <p className="text-xs text-gray-400 mt-1">
-            Desarrollado por <a href="https://ricardopuentes-portfolio.vercel.app/" target="_blank" className="hover:underline">Ricardo Puentes</a>
+            Desarrollado por <a href="https://ricardopuentes-portfolio.vercel.app/" target="_blank" className="hover:underline"><strong>Ricardo Puentes</strong></a>
           </p>
         </div>
 

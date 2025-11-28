@@ -1,18 +1,23 @@
 import heroPetsImage from "@/assets/hero-pets.jpg";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Heart, ArrowRight } from "lucide-react";
+import { Heart, ArrowRight, Loader2 } from "lucide-react";
+import { useStats } from "@/hooks/useStats";
 
 export default function Hero() {
+  const { stats, loading } = useStats();
+
+  const formatNumber = (num: number) => `${num}+`;
+
   return (
     <div>
-        {/* Hero Section */}
+      {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-hero py-20 md:py-32">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 animate-fade-in">
               <div className="space-y-4">
-                <Badge className="bg-red-400/50 text-primary border-primary/20  hover:bg-red-400/50 hover:text-primary">
+                <Badge className="bg-red-400/50 text-primary border-primary/20 hover:bg-red-400/50 hover:text-primary">
                   🐾 Cambiando vidas desde 2024
                 </Badge>
                 <h1 className="text-4xl md:text-6xl font-bold leading-tight text-foreground">
@@ -30,29 +35,47 @@ export default function Hero() {
                 <Button 
                   size="lg" 
                   className="bg-gradient-warm hover:shadow-warm transition-all duration-300"
-                  onClick={() => window.location.href = "/adopcion"}
-                >
+                  onClick={() => window.location.href = "/adopcion"}>
                   Adoptar Ahora
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
-                <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-red-200 hover:text-black/80">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="border-primary text-primary hover:bg-red-200 hover:text-black/80"
+                  onClick={() => window.location.href = "/proceso-adopcion"}>
                   Conocer Más
                 </Button>
               </div>
 
+              {/* Estadísticas dinámicas */}
               <div className="grid grid-cols-3 gap-6 pt-8">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-primary">15+</div>
-                  <div className="text-sm text-muted-foreground">Adopciones</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-primary">20+</div>
-                  <div className="text-sm text-muted-foreground">Mascotas</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-primary">5+</div>
-                  <div className="text-sm text-muted-foreground">Voluntarios</div>
-                </div>
+                {loading ? (
+                  <div className="col-span-3 flex justify-center py-2">
+                    <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                  </div>
+                ) : stats ? (
+                  <>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-primary">
+                        {formatNumber(stats.total_adoptions)}
+                      </div>
+                      <div className="text-sm text-muted-foreground">Adopciones</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-primary">
+                        {formatNumber(stats.total_rescued_pets)}
+                      </div>
+                      <div className="text-sm text-muted-foreground">Mascotas</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-primary">
+                        {formatNumber(stats.total_volunteers)}
+                      </div>
+                      <div className="text-sm text-muted-foreground">Voluntarios</div>
+                    </div>
+                  </>
+                ) : null}
               </div>
             </div>
 
@@ -71,8 +94,10 @@ export default function Hero() {
                     <Heart className="h-6 w-6 text-primary" fill="currentColor" />
                   </div>
                   <div>
-                    <div className="font-semibold">+15 adopciones</div>
-                    <div className="text-sm text-muted-foreground">este mes</div>
+                    <div className="font-semibold">
+                      {stats ? `+${stats.total_adoptions} adopciones` : "0 adopciones"}
+                    </div>
+                    <div className="text-sm text-muted-foreground">y vamos por más </div>
                   </div>
                 </div>
               </div>
@@ -81,5 +106,5 @@ export default function Hero() {
         </div>
       </section>
     </div>
-  )
+  );
 }

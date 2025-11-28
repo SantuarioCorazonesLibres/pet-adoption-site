@@ -25,9 +25,7 @@ export default function Banner() {
                 Explorar Mascotas
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-primary hover:bg-white/10">
-                Contáctanos
-              </Button>
+              
             </div>
           </div>
         </div>

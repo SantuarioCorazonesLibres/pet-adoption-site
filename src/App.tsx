@@ -13,6 +13,9 @@ import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import AdminDashboard from './pages/Admin';
 import Donaciones from './components/Donations';
+import Testimonios from './pages/Testimonials';
+import Requirements from './components/Requirements';
+import AdoptionProcess from './components/AdoptionProcess';
 import ScrollToTop from './components/ScrollToTop';
 
 const queryClient = new QueryClient();
@@ -34,7 +37,10 @@ function App() {
                 <Route path="/adopcion" element={<Adopcion />} />
                 <Route path='/sobre-nosotros' element={<AboutUs />} />
                 <Route path='/donaciones' element={<Donaciones />} />
-                
+                <Route path='/testimonios' element={<Testimonios />} />
+                <Route path='/requisitos' element={<Requirements />} />
+                <Route path='/proceso-adopcion' element={<AdoptionProcess />} />
+
                 {/* ===== RUTA DE LOGIN (OCULTA) ===== */}
                 {/* No hay enlaces a esta ruta en el sitio */}
                 <Route path='/login' element={<Login />}/>

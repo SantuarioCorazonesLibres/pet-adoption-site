@@ -1,0 +1,60 @@
+import {
+  Phone,
+  FileSignature,
+  FileText,
+  Heart,
+  Camera,
+  Home,
+} from "lucide-react";
+
+export const adoptionProcessSteps = [
+  {
+    number: "01",
+    title: "Entrevista",
+    subtitle: "Telefónica o Personal",
+    description: "Iniciamos con una conversación para conocerte mejor y entender tus expectativas sobre la adopción.",
+    icon: Phone,
+    color: "text-primary",
+  },
+  {
+    number: "02",
+    title: "Firma de Contrato",
+    subtitle: "Compromiso Legal",
+    description: "Se establecen las obligaciones del propietario de acuerdo al Artículo 42 de la Ley General de Bienestar Animal del Estado de Aguascalientes.",
+    icon: FileSignature,
+    color: "text-primary",
+  },
+  {
+    number: "03",
+    title: "Documentación Soporte",
+    subtitle: "Verificación de Identidad",
+    description: "Solicitamos INE y comprobante de domicilio para formalizar el proceso de adopción.",
+    icon: FileText,
+    color: "text-primary",
+  },
+  {
+    number: "04",
+    title: "Visita Domiciliaria",
+    subtitle: "Verificación del Hogar",
+    description: "Realizamos una visita o solicitamos fotos del área donde permanecerá el animalito. Este punto es vital para autorizar la adopción.",
+    icon: Home,
+    color: "text-primary",
+    highlight: true,
+  },
+  {
+    number: "05",
+    title: "Entrega del Animalito",
+    subtitle: "¡El Gran Día!",
+    description: "Una vez aprobado todo, acordamos la entrega ya sea en tu domicilio o en nuestras instalaciones (recomendado).",
+    icon: Heart,
+    color: "text-primary",
+  },
+  {
+    number: "06",
+    title: "Seguimiento",
+    subtitle: "Compromiso Continuo",
+    description: "Te solicitaremos evidencia de adaptación con fotos o videos. Incluye el carnet de vacunación del animalito.",
+    icon: Camera,
+    color: "text-primary",
+  },
+];
