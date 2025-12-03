@@ -22,7 +22,7 @@ const SobreNosotros = () => {
 
   // Función para abrir correo electrónico
   const handleContactEmail = () => {
-    const email = 'jorge.corazoneslibres@hotmail.com';
+    const email = 'santuariocorazoneslibres@outlook.com';
     const subject = 'Consulta sobre Corazones Libres';
     const body = '¡Hola!\n\nMe gustaría obtener más información sobre Corazones Libres.\n\n';
     const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
@@ -286,7 +286,7 @@ const SobreNosotros = () => {
               </div>
               <div className="flex items-center justify-center space-x-2">
                 <Mail className="h-5 w-5 text-primary" />
-                <span className="text-sm text-muted-foreground">jorge.corazoneslibres@hotmail.com</span>
+                <span className="text-sm text-muted-foreground">santuariocorazoneslibres@outlook.com</span>
               </div>
               <div className="flex items-center justify-center space-x-2">
                 <Calendar className="h-5 w-5 text-primary" />

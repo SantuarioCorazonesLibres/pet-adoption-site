@@ -33,7 +33,7 @@ export default function Contact() {
                   <Mail className="h-8 w-8 text-green-600" />
                 </div>
                 <h3 className="font-semibold mb-2">Email</h3>
-                <p className="text-muted-foreground w-full text-center break-words">jorge.corazoneslibres@hotmail.com</p>
+                <p className="text-muted-foreground w-full text-center break-words">santuariocorazoneslibres@outlook.com</p>
               </CardContent>
             </Card>
 
