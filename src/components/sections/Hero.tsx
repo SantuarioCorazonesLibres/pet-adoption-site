@@ -1,4 +1,4 @@
-import heroPetsImage from "@/assets/hero-pets.jpg";
+import heroPetsImage from "@/assets/hero-pets.jpeg";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Heart, ArrowRight, Loader2 } from "lucide-react";
@@ -12,7 +12,7 @@ export default function Hero() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-hero py-20 md:py-32">
+      <section className="relative overflow-hidden bg-gradient-hero py-14 md:py-30">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 animate-fade-in">
