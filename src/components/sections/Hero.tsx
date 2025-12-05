@@ -43,8 +43,8 @@ export default function Hero() {
                   size="lg" 
                   variant="outline" 
                   className="border-primary text-primary hover:bg-red-200 hover:text-black/80"
-                  onClick={() => window.location.href = "/proceso-adopcion"}>
-                  Conocer Más
+                  onClick={() => window.location.href = "/requisitos"}>
+                  Requisitos
                 </Button>
               </div>
 

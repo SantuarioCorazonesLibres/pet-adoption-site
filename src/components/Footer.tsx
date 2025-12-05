@@ -25,21 +25,21 @@ const Footer = () => {
               Conectando corazones, creando familias llenas de amor.
             </p>
             <div className="flex space-x-3">
-              <Button asChild variant="outline" size="icon" className="h-8 w-8">
+              <Button asChild variant="outline" size="icon" className="h-8 w-8 bg-blue-400">
                 <a href="https://www.facebook.com/share/1APp7xRvmk/" target="_blank" rel="noopener noreferrer">
-                  <FaFacebookF className="h-4 w-4 text-red-400" />
+                  <FaFacebookF className="h-4 w-4 text-white" />
                 </a>
               </Button>
 
-              <Button asChild variant="outline" size="icon" className="h-8 w-8">
+              <Button asChild variant="outline" size="icon" className="h-8 w-8 bg-pink-400">
                 <a href="https://www.instagram.com/santuariocorazoneslibres?igsh=MWZvbnczeThpMjV0NA==" target="_blank" rel="noopener noreferrer">
-                  <FaInstagram className="h-4 w-4 text-red-400" />
+                  <FaInstagram className="h-4 w-4 text-white" />
                 </a>
               </Button>
 
-              <Button asChild variant="outline" size="icon" className="h-8 w-8">
+              <Button asChild variant="outline" size="icon" className="h-8 w-8 bg-black">
                 <a href="https://twitter.com/tu_pagina" target="_blank" rel="noopener noreferrer">
-                  <FaTiktok className="h-4 w-4 text-red-400" />
+                  <FaTiktok className="h-4 w-4 text-white" />
                 </a>
               </Button>
             </div>

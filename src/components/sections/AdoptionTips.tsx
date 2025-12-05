@@ -48,7 +48,10 @@ export default function AdoptionTips() {
                 </div>
               </div>
 
-              <Button className="mt-8 bg-gradient-warm hover:shadow-warm transition-all duration-300">
+              <Button 
+                className="mt-8 bg-gradient-warm hover:shadow-warm transition-all duration-300"
+                onClick={() => window.location.href = "/proceso-adopcion"}
+                >
                 Guía Completa de Adopción
               </Button>
             </div>

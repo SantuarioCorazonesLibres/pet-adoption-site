@@ -100,12 +100,12 @@ const Donaciones = () => {
           </CardHeader>
           <CardContent className="px-4 md:px-6">
             <Tabs defaultValue="paypal" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 h-auto">
-                <TabsTrigger value="paypal" className="text-xs md:text-sm py-2">
+              <TabsList className="grid w-full grid-cols-2 h-auto gap-3">
+                <TabsTrigger value="paypal" className="text-xs md:text-sm py-2 data-[state=active]:bg-blue-400 data-[state=active]:text-white data-[state=inactive]:bg-blue-50">
                   <CreditCard className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
                   <span className="hidden sm:inline">PayPal / </span>Tarjeta
                 </TabsTrigger>
-                <TabsTrigger value="transfer" className="text-xs md:text-sm py-2">
+                <TabsTrigger value="transfer" className="text-xs md:text-sm py-2 data-[state=active]:bg-red-400 data-[state=active]:text-white data-[state=inactive]:bg-red-50">
                   <Building2 className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
                   Transferencia
                 </TabsTrigger>
