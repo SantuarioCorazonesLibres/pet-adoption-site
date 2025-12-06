@@ -38,7 +38,7 @@ const Footer = () => {
               </Button>
 
               <Button asChild variant="outline" size="icon" className="h-8 w-8 bg-black">
-                <a href="https://twitter.com/tu_pagina" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.tiktok.com/@corazoneslibres_oficial?_r=1&_t=ZS-91z1aYOiH5k" target="_blank" rel="noopener noreferrer">
                   <FaTiktok className="h-4 w-4 text-white" />
                 </a>
               </Button>
